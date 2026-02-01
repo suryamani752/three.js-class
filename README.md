@@ -1,4 +1,4 @@
-# 📦 Three.js Class Project
+# 📦 Three.js Class
 
 This repository contains the code from our **Three.js + React + Vite** class session.
 
