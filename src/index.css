@@ -1,14 +1,10 @@
-* {
-  box-sizing: border-box;
-}
+@import "tailwindcss";
 
 body,
 html,
 #root {
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; /* scrollbar hatane ke liye */
-  background-color: #1a1a1a;
+  background-color: #101010; /* Match Three.js background */
+  overflow: hidden;
 }

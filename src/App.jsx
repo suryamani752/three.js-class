@@ -3,30 +3,39 @@ import { OrbitControls } from "@react-three/drei";
 
 function App() {
   return (
-    // canvas: ye humara 3D world ka darwaza (portal hai)
-    // iske andar jo bhi hoga, wo 3D space mein hoga
-
-    <Canvas camera={{ position: [3, 3, 3] }}>
-      {/* canvas prop: "camera" -> hum camera ko thoda diagonal rakh rahe hai (x = 3, y = 3, z = 3) 
-      taaki box ka corner dikhe, shirf front face nahi*/}
-      {/* Lights: Bina light ke sab kuch kala dikhega
-      TODO: NEXT PART MEIN DETAIL MEIN SIKHEGE */}
-
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[2, 2, 2]} />
-
-      {/* orbitControls component -> bas isko yaha rakhne se interaction enable ho jaayega.
-      enableZoom={true} by default hota hai  */}
+    <Canvas shadows camera={{ position: [0, 2, 5] }}>
       <OrbitControls />
 
-      {/* ye ek 3D object hai */}
-      <mesh rotation={[0.5, 0.5, 0]}>
-        {/* rotation: box ko thoda tilted dikhane ke liye X and Y axis par thoda ghumaya hai */}
-        {/* Geometry: Object ka shape (BOX) */}
-        <boxGeometry args={[2, 2, 2]} />
+      {/* lights: inke bina standardMaterial kala dikhega */}
+      <ambientLight intensity={0.5} />
+      <directionalLight
+        position={[2, 5, 2]}
+        intensity={1}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+      />
 
-        {/* Material: Object ka color/look  */}
-        <meshStandardMaterial color="mediumpurple" />
+      {/* 1. sphere (shiny green ball) */}
+      <mesh position={[-1.5, 0, 0]} castShadow>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshStandardMaterial color="limegreen" roughness={0.1} />
+      </mesh>
+
+      {/* 2. red metal donut */}
+      <mesh position={[1.5, 0, 0]} castShadow>
+        {/* raduis,  tubeThickness, radialsegments, tubularsegments */}
+        <torusGeometry args={[0.8, 0.2, 16, 32]} />
+        <meshStandardMaterial color="tomato" metalness={0.8} roughness={0.2} />
+      </mesh>
+
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, -1.5, 0]}
+        receiveShadow
+      >
+        <planeGeometry args={[10, 10]} />
+        <meshStandardMaterial color="gray" />
       </mesh>
     </Canvas>
   );
